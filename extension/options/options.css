@@ -1,0 +1,298 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0B0F19;
+  color: #F8FAFC;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 32px 20px;
+}
+
+.options-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.options-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1E293B;
+  padding-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shield-logo {
+  font-size: 36px;
+}
+
+.brand-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.brand-subtitle {
+  font-size: 13px;
+  color: #94A3B8;
+}
+
+.save-status {
+  background-color: #064E3B;
+  color: #A7F3D0;
+  border: 1px solid #059669;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.save-status.show {
+  opacity: 1;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 800px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background-color: #111827;
+  border: 1px solid #1E293B;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #F1F5F9;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: -8px;
+}
+
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #E2E8F0;
+}
+
+.toggle-desc {
+  font-size: 12px;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #2563EB;
+  cursor: pointer;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #CBD5E1;
+}
+
+.field-desc {
+  font-size: 11px;
+  color: #64748B;
+}
+
+.slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider {
+  width: 100%;
+  accent-color: #2563EB;
+  cursor: pointer;
+}
+
+.radio-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 10px 12px;
+  cursor: pointer;
+  position: relative;
+  padding-left: 36px;
+}
+
+.radio-card input {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  accent-color: #2563EB;
+}
+
+.radio-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: #F8FAFC;
+}
+
+.radio-desc {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.list-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.text-input {
+  flex: 1;
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  color: #F8FAFC;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #38BDF8;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.btn-secondary {
+  background-color: #1E293B;
+  color: #F8FAFC;
+  border-color: #334155;
+}
+
+.btn-secondary:hover {
+  background-color: #334155;
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: #EF4444;
+  border-color: #7F1D1D;
+}
+
+.btn-danger:hover {
+  background-color: #7F1D1D;
+  color: #FEE2E2;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  background-color: #0F172A;
+  border: 1px solid #1E293B;
+  border-radius: 6px;
+  padding: 8px;
+  min-height: 50px;
+}
+
+.tag-item {
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  color: #E2E8F0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tag-remove {
+  color: #94A3B8;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tag-remove:hover {
+  color: #EF4444;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard Security Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <!-- Header -->
+    <header class="options-header">
+      <div class="brand">
+        <div class="shield-logo">🛡️</div>
+        <div>
+          <h1 class="brand-title">PhishGuard Protection Engine</h1>
+          <p class="brand-subtitle">Configure heuristic thresholds, protected brands, and detection sensitivity</p>
+        </div>
+      </div>
+      <div class="save-status" id="saveStatus">Settings saved</div>
+    </header>
+
+    <div class="options-grid">
+      <!-- Left Column: Detection & Sensitivity -->
+      <div class="col">
+        <!-- Master Protection Toggle -->
+        <section class="card">
+          <h2 class="card-title">Real-Time Protection Status</h2>
+          <label class="toggle-row highlight">
+            <div>
+              <span class="toggle-label">Master Phishing &amp; Lookalike Protection</span>
+              <p class="toggle-desc">When enabled, evaluates active tabs and downloads in real time</p>
+            </div>
+            <input type="checkbox" id="protectionEnabled" checked>
+          </label>
+        </section>
+
+        <!-- Detection Engine Modules -->
+        <section class="card">
+          <h2 class="card-title">Detection Engines</h2>
+          <div class="toggle-group">
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">URL &amp; Structure Analysis</span>
+                <p class="toggle-desc">Detect IP hostnames, punycode IDNs, excessive subdomains, and suspicious ports</p>
+              </div>
+              <input type="checkbox" id="enableUrlAnalysis" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">Typosquatting &amp; Homoglyph Engine</span>
+                <p class="toggle-desc">Visual homoglyph normalization and brand distance evaluation</p>
+              </div>
+              <input type="checkbox" id="enableTyposquatting" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">DOM &amp; Form Security Inspector</span>
+                <p class="toggle-desc">Detects credential fields, cross-origin targets, and insecure HTTP forms</p>
+              </div>
+              <input type="checkbox" id="enableDomAnalysis" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">Social Engineering &amp; Coercive Cues</span>
+                <p class="toggle-desc">Detects fake scareware screens, artificial urgency, and suspension threats</p>
+              </div>
+              <input type="checkbox" id="enableSocialEngineering" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">Download Context Evaluator</span>
+                <p class="toggle-desc">Correlates executable file downloads with origin domain threat levels</p>
+              </div>
+              <input type="checkbox" id="enableDownloadContext" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">Redirect Chain Analyzer</span>
+                <p class="toggle-desc">Inspects multi-hop link shorteners and evasive navigation bounces</p>
+              </div>
+              <input type="checkbox" id="enableRedirectAnalysis" checked>
+            </label>
+
+            <label class="toggle-row">
+              <div>
+                <span class="toggle-label">Reputation Intelligence Feed</span>
+                <p class="toggle-desc">Fast local lookup against verified threat databases</p>
+              </div>
+              <input type="checkbox" id="enableReputationLayer" checked>
+            </label>
+          </div>
+        </section>
+
+        <!-- Sensitivity & Thresholds -->
+        <section class="card">
+          <h2 class="card-title">Sensitivity &amp; Risk Thresholds</h2>
+          
+          <div class="field-group">
+            <label class="field-label">Detection Sensitivity Profile</label>
+            <div class="radio-cards">
+              <label class="radio-card">
+                <input type="radio" name="detectionSensitivity" value="CONSERVATIVE">
+                <span class="radio-title">Conservative</span>
+                <span class="radio-desc">Minimizes false positives; triggers only on high-confidence threats.</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="detectionSensitivity" value="BALANCED" checked>
+                <span class="radio-title">Balanced (Recommended)</span>
+                <span class="radio-desc">Optimal baseline protection for daily web browsing.</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="detectionSensitivity" value="AGGRESSIVE">
+                <span class="radio-title">Aggressive</span>
+                <span class="radio-desc">Elevates penalties on new, heavily hyphenated, or unusual domains.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="slider-header">
+              <label class="field-label" for="warningThreshold">Warning Banner Threshold (Score: <span id="warningVal">70</span>)</label>
+            </div>
+            <input type="range" id="warningThreshold" min="30" max="90" value="70" class="slider">
+            <p class="field-desc">Pages scoring at or above this value display an in-page security advisory banner.</p>
+          </div>
+
+          <div class="field-group">
+            <div class="slider-header">
+              <label class="field-label" for="blockThreshold">Blocking Interstitial Threshold (Score: <span id="blockVal">90</span>)</label>
+            </div>
+            <input type="range" id="blockThreshold" min="50" max="100" value="90" class="slider">
+            <p class="field-desc">Pages scoring at or above this value are intercepted with a full-screen warning interstitial.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Allowlist, Blocklist, Brands & Diagnostics -->
+      <div class="col">
+        <!-- Allowlist Manager -->
+        <section class="card">
+          <h2 class="card-title">Trusted Allowlist</h2>
+          <p class="card-desc">Domains listed here are never flagged or blocked.</p>
+          
+          <div class="list-input-row">
+            <input type="text" id="allowlistInput" placeholder="e.g. intranet.mycorp.internal" class="text-input">
+            <button id="addAllowlistBtn" class="btn btn-secondary">Add</button>
+          </div>
+          
+          <div id="allowlistContainer" class="tag-cloud">
+            <!-- Allowlist items -->
+          </div>
+        </section>
+
+        <!-- Custom Blocklist Manager -->
+        <section class="card">
+          <h2 class="card-title">Custom Threat Blocklist</h2>
+          <p class="card-desc">Specific domains to treat as critical malicious phishing endpoints.</p>
+          
+          <div class="list-input-row">
+            <input type="text" id="blocklistInput" placeholder="e.g. fake-login-domain.xyz" class="text-input">
+            <button id="addBlocklistBtn" class="btn btn-secondary">Add</button>
+          </div>
+          
+          <div id="blocklistContainer" class="tag-cloud">
+            <!-- Blocklist items -->
+          </div>
+        </section>
+
+        <!-- Enterprise Fleet Telemetry & Status Model -->
+        <section class="card">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <h2 class="card-title" style="margin-bottom: 0;">Enterprise Fleet &amp; Status Model</h2>
+            <span id="optionsStatusBadge" class="status-pill safe" style="font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 700;">Local Mode</span>
+          </div>
+          <p class="card-desc">Conceptually distinguishes local on-device browser protection from enterprise cloud management.</p>
+          
+          <div id="statusModelBanner" style="margin-bottom: 14px; padding: 12px; background: #0F172A; border-radius: 8px; border: 1px solid #1E293B;">
+            <div id="optionsHeadline" style="font-weight: 700; font-size: 13px; color: #F8FAFC; margin-bottom: 3px;">Protected locally</div>
+            <div id="optionsSubline" style="font-size: 11px; color: #94A3B8; line-height: 1.4;">PhishGuard is actively checking websites in this browser.</div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="fleetBackendUrl">Fleet API Server Base URL</label>
+            <input type="text" id="fleetBackendUrl" placeholder="http://localhost:3000" class="text-input" style="width: 100%;">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="fleetEnrollmentToken">Organization Enrollment Token</label>
+            <input type="password" id="fleetEnrollmentToken" placeholder="pg_enroll_acme_pilot_2026" class="text-input" style="width: 100%;">
+            <p class="field-desc">Leave blank for standalone personal use, or enter your IT department token for centralized policy management.</p>
+          </div>
+
+          <div style="margin-top: 12px; display: flex; gap: 8px;">
+            <button id="fleetEnrollBtn" class="btn btn-primary" style="flex: 1;">Connect &amp; Sync Fleet</button>
+            <button id="fleetDisconnectBtn" class="btn btn-secondary" style="flex: 1;">Disconnect (Local Only)</button>
+          </div>
+
+          <!-- Section I: Compact Status Section -->
+          <div id="fleetStatusBox" style="margin-top: 14px; padding: 12px; background: #0F172A; border-radius: 8px; border: 1px solid #1E293B; font-size: 11px; line-height: 1.6; color: #94A3B8;">
+            <div style="font-weight: 700; color: #E2E8F0; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #1E293B; padding-bottom: 4px;">Architectural Status</div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Local Protection:</span>
+              <span id="statLocalProtection" style="color: #34D399; font-weight: 600;">ACTIVE</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Enterprise Enrollment:</span>
+              <span id="statEnrollment" style="color: #94A3B8; font-weight: 600;">NOT ENROLLED</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Cloud Synchronization:</span>
+              <span id="statSync" style="color: #94A3B8; font-weight: 600;">OFFLINE</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Last Successful Sync:</span>
+              <span id="statLastSync" style="color: #CBD5E1;">Never</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Organization:</span>
+              <span id="statOrganization" style="color: #CBD5E1;">Not enrolled</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+              <span>Pending Telemetry:</span>
+              <span id="statQueueCount" style="color: #38BDF8; font-weight: 600;">0 events</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Device Identifier:</span>
+              <span id="fleetDeviceId" style="color: #64748B; font-family: monospace;">-</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Privacy & Local Processing Guarantee -->
+        <section class="card">
+          <h2 class="card-title">Privacy Architecture</h2>
+          <div class="privacy-box">
+            <p><strong>🔒 100% Local On-Device Processing</strong></p>
+            <p>PhishGuard runs completely within your browser. It does not transmit visited URLs, passwords, form values, keystrokes, or browser history to external cloud servers.</p>
+          </div>
+        </section>
+
+        <!-- Diagnostics & Reset -->
+        <section class="card">
+          <h2 class="card-title">Developer &amp; Management</h2>
+          <label class="toggle-row">
+            <div>
+              <span class="toggle-label">Enable Developer Diagnostics</span>
+              <p class="toggle-desc">Displays raw score breakdowns and feature vectors in the extension popup</p>
+            </div>
+            <input type="checkbox" id="developerMode">
+          </label>
+
+          <div class="card-actions">
+            <button id="resetDefaultsBtn" class="btn btn-danger">Reset to Defaults</button>
+            <button id="clearHistoryBtn" class="btn btn-secondary">Clear Scan History</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

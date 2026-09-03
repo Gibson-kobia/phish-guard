@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard Security Inspector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="shield-icon">🛡️</div>
+        <div class="brand-text">
+          <span class="brand-title">PhishGuard</span>
+          <span class="brand-subtitle">Explainable Real-Time Protection</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="rescanBtn" class="icon-btn" title="Rescan Active Page">🔄</button>
+        <button id="optionsBtn" class="icon-btn" title="Open Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Endpoint Status Model Banner -->
+    <div id="endpointStatusBanner" class="endpoint-status-banner safe">
+      <div class="status-banner-left">
+        <span id="statusIndicatorDot" class="status-dot safe"></span>
+        <div class="status-banner-text">
+          <div id="statusHeadline" class="status-headline">Protected locally</div>
+          <div id="statusSubline" class="status-subline">PhishGuard is actively checking websites in this browser.</div>
+        </div>
+      </div>
+      <span id="statusBadge" class="status-pill safe">Local</span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button id="tabBtnOverview" class="tab-btn active" data-tab="overview">Overview</button>
+      <button id="tabBtnTimeline" class="tab-btn" data-tab="timeline">Activity Timeline</button>
+      <button id="tabBtnHistory" class="tab-btn" data-tab="history">Recent Scans</button>
+    </nav>
+
+    <!-- TAB 1: OVERVIEW -->
+    <main id="viewOverview" class="tab-view active">
+      <!-- Status & Score Card -->
+      <div id="statusCard" class="status-card safe">
+        <div class="status-header">
+          <div class="verdict-wrapper">
+            <span id="verdictBadge" class="verdict-badge">SAFE</span>
+            <span id="targetBrandBadge" class="brand-tag hidden">Impersonation</span>
+          </div>
+          <div class="score-display">
+            <span class="score-label">RISK SCORE</span>
+            <span id="scoreValue" class="score-num">0</span>
+            <span class="score-max">/100</span>
+          </div>
+        </div>
+
+        <div class="url-display">
+          <span class="url-label">ACTIVE DOMAIN</span>
+          <div id="domainName" class="domain-text">evaluating...</div>
+        </div>
+      </div>
+
+      <!-- Human-Readable Summary -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">Assessment Summary</span>
+          <span id="scanTime" class="scan-time">0ms</span>
+        </div>
+        <ul id="reasonsList" class="reasons-list">
+          <li class="reason-item safe">Evaluating real-time security signals...</li>
+        </ul>
+      </div>
+
+      <!-- Evidence / Signals List -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">Detected Evidence (<span id="signalsCount">0</span>)</span>
+        </div>
+        <div id="signalsContainer" class="signals-container">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Quick Allowlist Action Button -->
+      <div id="quickAllowlistContainer" class="quick-action-box hidden">
+        <button id="quickAllowlistBtn" class="secondary-action-btn">
+          <span>Trust Domain (Add to Allowlist)</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- TAB 2: TIMELINE -->
+    <main id="viewTimeline" class="tab-view">
+      <div class="section-header">
+        <span class="section-title">Security Activity Log</span>
+        <span class="section-subtitle">Chronological Page Evaluation</span>
+      </div>
+      <div id="timelineContainer" class="timeline-container">
+        <!-- Injected dynamically -->
+      </div>
+    </main>
+
+    <!-- TAB 3: RECENT HISTORY -->
+    <main id="viewHistory" class="tab-view">
+      <div class="section-header">
+        <span class="section-title">Recent Site Assessments</span>
+        <button id="clearHistoryBtn" class="text-btn">Clear</button>
+      </div>
+      <div id="historyContainer" class="history-container">
+        <!-- Injected dynamically -->
+      </div>
+    </main>
+
+    <!-- Developer / Debug Inspection Accordion (if Dev Mode enabled) -->
+    <div id="debugSection" class="debug-section hidden">
+      <button id="toggleDebugBtn" class="debug-toggle">
+        <span>Diagnostics & Features</span>
+        <span id="debugArrow">▼</span>
+      </button>
+      <div id="debugContent" class="debug-content hidden">
+        <div class="debug-metric">
+          <span>Scan Duration:</span> <span id="debugTime">0ms</span>
+        </div>
+        <div class="debug-metric">
+          <span>IP Hostname:</span> <span id="debugIp">No</span>
+        </div>
+        <div class="debug-metric">
+          <span>Forms Found:</span> <span id="debugForms">0</span>
+        </div>
+        <div class="debug-metric">
+          <span>Punycode / IDN:</span> <span id="debugPuny">No</span>
+        </div>
+        <pre id="debugRaw" class="debug-raw"></pre>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="privacy-note">🔒 100% Local On-Device Analysis</span>
+      <a href="../options/options.html" target="_blank" class="footer-link">Options</a>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

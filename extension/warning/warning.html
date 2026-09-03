@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard Security Warning</title>
+  <link rel="stylesheet" href="warning.css">
+</head>
+<body>
+  <div class="warning-wrapper">
+    <div class="warning-card">
+      <!-- Warning Header -->
+      <div class="badge-row">
+        <span class="shield-badge">🛡️ PHISHGUARD DEFENSE</span>
+        <span id="riskBadge" class="risk-badge">HIGH RISK</span>
+      </div>
+
+      <h1 class="warning-title">Potentially Dangerous Website Detected</h1>
+      
+      <p class="warning-statement">
+        PhishGuard intercepted your navigation because this website displays multiple behavioral signals commonly associated with phishing, credential harvesting, or deceptive brand impersonation.
+      </p>
+
+      <!-- Target Inspection Box -->
+      <div class="target-box">
+        <div class="target-row">
+          <span class="label">Destination URL:</span>
+          <span id="targetUrl" class="value url">Loading destination...</span>
+        </div>
+        <div class="target-row">
+          <span class="label">Calculated Risk:</span>
+          <span id="targetScore" class="value score">-- / 100</span>
+        </div>
+      </div>
+
+      <!-- Reasons and Detected Signals Section -->
+      <div class="signals-section">
+        <h2 class="section-title">Detection Signals &amp; Evidence</h2>
+        <div id="signalsList" class="signals-list">
+          <div class="loading-state">Evaluating security signals...</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <button id="safetyBtn" class="btn btn-primary">
+          <span>⬅ Return to Safety</span>
+        </button>
+        
+        <button id="advancedToggleBtn" class="btn btn-secondary">
+          <span>Advanced Details</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Advanced Bypass Area -->
+      <div id="advancedArea" class="advanced-area hidden">
+        <div class="advanced-warning">
+          <p><strong>Warning:</strong> Submitting passwords, payment card details, or authentication codes on this page poses a severe risk of account takeover.</p>
+        </div>
+        <div class="bypass-controls">
+          <button id="bypassBtn" class="btn btn-danger">
+            Proceed Anyway (Not Recommended)
+          </button>
+          <button id="allowlistBtn" class="btn btn-outline">
+            Trust &amp; Add to Local Allowlist
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer explanation -->
+      <div class="warning-footer">
+        <p>PhishGuard detection is probabilistic and explainable. No personal passwords or private data were collected or transmitted to generate this alert.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="warning.js"></script>
+</body>
+</html>
