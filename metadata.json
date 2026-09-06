@@ -1,0 +1,6 @@
+{
+  "name": "PhishGuard",
+  "description": "Real-Time Browser Phishing Detection Chrome Extension and Security Evaluation Suite",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
